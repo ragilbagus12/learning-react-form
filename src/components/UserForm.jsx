@@ -89,8 +89,8 @@ function UserForm({ initialData, onSubmit, onCancel}) {
                 {...register("gender")}
                 className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-800 outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-200 aria-invalid:border-red-500">
                     <option value="">Pilih Gender</option>
-                    <option value="pria">Pria</option>
-                    <option value="wanita">Wanita</option>
+                    <option value="Pria">Pria</option>
+                    <option value="Wanita">Wanita</option>
                 </select>
 
                 {errors.gender && (
@@ -140,3 +140,5 @@ function UserForm({ initialData, onSubmit, onCancel}) {
         </form>
     );
 }
+
+export default UserForm;

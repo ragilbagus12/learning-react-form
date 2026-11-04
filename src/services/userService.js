@@ -8,7 +8,7 @@ function readUsers() {
 }
 
 function writeUsers(users) {
-    localStorage.getItem(STORAGE_KEY, JSON.stringify(users));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
 }
 
 function delay(ms) {
@@ -68,7 +68,7 @@ export async function updateUser(id, payload) {
     }
 
     const updateUser = {...users[index], ...payload };
-    users[index] = updateUser();
+    users[index] = updateUser;
     writeUsers(users);
     return updateUser;
 }
