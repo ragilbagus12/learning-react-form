@@ -1,4 +1,3 @@
-import { promise } from "zod";
 
 const STORAGE_KEY = "latihan_users";
 
@@ -27,7 +26,7 @@ export async function getUserById(id) {
     const user = readUsers().find((item) => item.id === id);
 
     if (!user) {
-        throw new Error("Pengguna tidak di temkan.");
+        throw new Error("Pengguna tidak di temukan.");
     }
 
     return user;
@@ -67,8 +66,8 @@ export async function updateUser(id, payload) {
         throw new Error("Pengguna tidak ditemukan.");
     }
 
-    const updateUser = {...users[index], ...payload };
-    users[index] = updateUser;
+    const updatedUser = {...users[index], ...payload };
+    users[index] = updatedUser;
     writeUsers(users);
-    return updateUser;
+    return updatedUser;
 }

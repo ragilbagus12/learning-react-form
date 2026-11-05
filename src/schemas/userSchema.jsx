@@ -15,23 +15,24 @@ export const userSchema = z.object({
     .email({ message: "Email tidak valid." }),
 
     umur: z
-    .number({ invalid_type_error: "Umur harus berupa angka." })
+    .number({ error: "Umur harus berupa angka." })
     .int({ message: "Umur harus berupa angka" })
     .min(17, { message: "Umur harus minimal 17 tahun" })
     .max(30, { message: "Umur harus dibawah 30 tahun." }),
 
-    // Menggunakan z.string().min() agar string kosong "" di awal bisa memicu pesan "Pilih Gender" saat belum dipilih
-    gender: z.string().min(1, { message: "Pilih Gender" }),
+    gender: z.enum(["Pria", "Wanita"], {
+        error: "Pilih Gender",
+    }),
 
     setuju: z.literal(true, {
-        errorMap: () => ({ message: "Kamu harus menyetujui persyaratan & ketentuan" })
+        error: "kamu harus menyetujui persyaratan & ketentuan."
     }),
 });
 
 export const EMPTY_USER = {
     nama: "",
     email: "",
-    umur: 17, // Diubah menjadi tipe angka (number)
-    gender: "", // Kosong agar dropdown menampilkan opsi "Pilih Gender"
+    umur: 17, 
+    gender: "", 
     setuju: false,
 };

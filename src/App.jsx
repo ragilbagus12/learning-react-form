@@ -99,7 +99,7 @@ export default function App() {
                   <button
                   type="button"
                   onClick={() => setEditingUser(user)}
-                  className="shrink-0 rounded-lg border border-gray-300 bbg-white px-3 py-2.5 text-xs font-semibold text-gray-700 transition hover:bg-blue-50"
+                  className="shrink-0 rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-xs font-semibold text-gray-700 transition hover:bg-blue-50"
                   >
                     Edit
                   </button>

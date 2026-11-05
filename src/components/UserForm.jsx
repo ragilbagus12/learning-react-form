@@ -17,14 +17,14 @@ function UserForm({ initialData, onSubmit, onCancel}) {
         defaultValues: initialData ?? EMPTY_USER,
     });
 
-    const [succesMessage, setSuccesMessage] = useState("");
+    const [successMessage, setSuccessMessage] = useState("");
 
     const submit = async (data) => {
-        setSuccesMessage("");
+        setSuccessMessage("");
 
         try {
             await onSubmit(data);
-            setSuccesMessage(
+            setSuccessMessage(
                 initialData ? "Data Berhasil Di Perbarui" : "Data Berhasil Disimpan"
             );
 
@@ -48,13 +48,13 @@ function UserForm({ initialData, onSubmit, onCancel}) {
 
     return (
         <form onSubmit={handleSubmit(submit)} noValidate>
-            {succesMessage && (
+            {successMessage && (
                 <p role="status" className="mb-4 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2.5 text-sm font-medium text-emerald-700">
-                    {succesMessage}
+                    {successMessage}
                 </p>
             )}
             {errors.root?.server && (
-                <p role="status" className="mb-4 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2.5 text-sm font-medium text-emerald-700">
+                <p role="alert" className="mb-4 rounded-lg border border-red-200 bg-red-50 px-3 py-2.5 text-sm font-medium text-red-700">
                     {errors.root.server.message}
                 </p>
             )}
@@ -121,7 +121,7 @@ function UserForm({ initialData, onSubmit, onCancel}) {
             <div className="mt-2 flex flex-wrap gap-2">
                 <button type="submit" disabled={isSubmitting} className="inline-flex items-center justify-center rounded-lg px-4 py-2 bg-blue-600 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60">
                     {isSubmitting
-                    ? "Menyimpann.." 
+                    ? "Menyimpan.." 
                     : initialData
                     ? "Perbarui" 
                     : "Simpan" }
