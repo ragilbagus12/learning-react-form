@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EMPTY_USER, userSchema } from "../schemas/userSchema";
 import FormInput from "./FormInput";
+import Swal from "sweetalert2";
 
 function UserForm({ initialData, onSubmit, onCancel}) {
     const {
@@ -17,16 +18,16 @@ function UserForm({ initialData, onSubmit, onCancel}) {
         defaultValues: initialData ?? EMPTY_USER,
     });
 
-    const [successMessage, setSuccessMessage] = useState("");
-
     const submit = async (data) => {
-        setSuccessMessage("");
-
         try {
             await onSubmit(data);
-            setSuccessMessage(
-                initialData ? "Data Berhasil Di Perbarui" : "Data Berhasil Disimpan"
-            );
+            Swal.fire({
+                icon: "success",
+                title: initialData ? "Berhasil diperbarui" : "Berhasil disimpan",
+                text: initialData ? "Data pengguna berhsil diperbarui." : "Pengguna berhasil ditambahkan",
+                showConfirmButton: false,
+                timer: 1500,
+            });
 
             if (!initialData) {
                 reset(EMPTY_USER);
@@ -37,10 +38,20 @@ function UserForm({ initialData, onSubmit, onCancel}) {
                     type: "server",
                     message: "Email sudah terdaftar, gunakan email lain.",
                 });
+                Swal.fire({
+                    icon: "error",
+                    title: "Email sudah terdaftar",
+                    text: "Silahkan gunakan email lain.",
+                });
             } else {
                 setError("root.server", {
                     type: "server",
                     message: error.message || "Terjadi kesalahan, silahkan coba lagi",
+                });
+                Swal.fire({
+                    icon: "error",
+                    title: "Gagal menyimpan",
+                    text: error.message || "Terjadi kesalahan, silahkan coba lagi.",
                 });
             }
         }
@@ -48,16 +59,7 @@ function UserForm({ initialData, onSubmit, onCancel}) {
 
     return (
         <form onSubmit={handleSubmit(submit)} noValidate>
-            {successMessage && (
-                <p role="status" className="mb-4 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2.5 text-sm font-medium text-emerald-700">
-                    {successMessage}
-                </p>
-            )}
-            {errors.root?.server && (
-                <p role="alert" className="mb-4 rounded-lg border border-red-200 bg-red-50 px-3 py-2.5 text-sm font-medium text-red-700">
-                    {errors.root.server.message}
-                </p>
-            )}
+            
             <FormInput 
                 label="Nama"
                 type="text"
